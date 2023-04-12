@@ -7,12 +7,17 @@ export interface User {
 }
 
 interface UserState {
-    users: User[];
+    entities: User[];
     currentUser?: User;
 }
-
+const adminUser = {
+    id: nanoid(),
+    name: 'admin',
+    createdTs: Date.now(),
+};
 const initialState: UserState = {
-    users: [],
+    entities: [adminUser],
+    currentUser: adminUser,
 }
 
 const userSlice = createSlice({
@@ -21,7 +26,7 @@ const userSlice = createSlice({
     reducers: {
         addUser: {
             reducer: (state, action: PayloadAction<User>) => {
-                state.users.unshift(action.payload);
+                state.entities.unshift(action.payload);
             },
             prepare: (name: string) => {
                 return {
@@ -34,10 +39,10 @@ const userSlice = createSlice({
             },
         },
         deleteUser: (state, action: PayloadAction<string>) => {
-            state.users = state.users.filter(user => user.id !== action.payload);
+            state.entities = state.entities.filter(user => user.id !== action.payload);
         },
         setCurrentUser: (state, action: PayloadAction<string>) => {
-            state.currentUser = state.users.find(user => user.id === action.payload);
+            state.currentUser = state.entities.find(user => user.id === action.payload);
         },
     }
 });

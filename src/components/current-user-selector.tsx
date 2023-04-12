@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import tw from 'tailwind-styled-components';
+import { useAppSelector } from '../store';
 
 const Select = tw.select`
     px-2 
@@ -8,14 +9,18 @@ const Select = tw.select`
     appearance-none 
     border-b-2 
     tracking-wide
+    outline-none
 `;
 
 function CurrentUserSelector() {
-    const users = ['user1', 'user2', 'user3', 'user4'];
-    const [selected, setSelected] = useState(users[0]);
+    const { entities: users, currentUser } = useAppSelector(state => state.users);
+    const [selected, setSelected] = useState(currentUser?.id || users[0]?.id);
     return (
-        <Select value={selected} onChange={e => setSelected(e.target.value)}>
-            {users.map(user => <option key={user}>{user}</option>)}
+        <Select
+            value={selected}
+            onChange={e => setSelected(e.target.value)}
+        >
+            {users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)}
         </Select>
     )
 }

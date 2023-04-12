@@ -9,11 +9,11 @@ export interface Task {
 }
 
 interface TaskState {
-    tasks: Task[];
+    entities: Task[];
 }
 
 const initialState: TaskState = {
-    tasks: [],
+    entities: [],
 }
 
 const taskSlice = createSlice({
@@ -22,7 +22,7 @@ const taskSlice = createSlice({
     reducers: {
         addTask: {
             reducer: (state, action: PayloadAction<Task>) => {
-                state.tasks.unshift(action.payload);
+                state.entities.unshift(action.payload);
             },
             prepare: (text: string, userId?: string) => {
                 return {
@@ -36,18 +36,18 @@ const taskSlice = createSlice({
             }
         },
         toggleTask: (state, action: PayloadAction<string>) => {
-            const taskToComplete = state.tasks.find(task => task.id === action.payload);
+            const taskToComplete = state.entities.find(task => task.id === action.payload);
             if (taskToComplete) {
                 taskToComplete.completed = !taskToComplete.completed;
             }
         },
         deleteTask: (state, action: PayloadAction<string>) => {
-            state.tasks = state.tasks.filter(task => task.id !== action.payload);
+            state.entities = state.entities.filter(task => task.id !== action.payload);
         },
     },
     extraReducers: (builder) => {
         builder.addCase(deleteUser, (state, action) => {
-            state.tasks = state.tasks.filter(task => task.userId !== action.payload);
+            state.entities = state.entities.filter(task => task.userId !== action.payload);
         });
     }
 });
