@@ -1,13 +1,18 @@
-import { Provider } from 'react-redux';
+import { Route, Routes } from "react-router-dom";
+
+
+
 import Layout from "./components/layout";
-import { store } from './store';
+import TaskPage from "./pages/task";
+import UserPage from "./pages/user";
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <Layout>
-
-      </Layout>
-    </Provider>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<TaskPage />} />
+        <Route path="/manage-users" element={<UserPage />} />
+      </Routes>
+    </Layout>
   )
 }
