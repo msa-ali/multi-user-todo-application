@@ -6,6 +6,7 @@ export interface Task {
     text: string;
     completed: boolean;
     userId?: string;
+    createdTS: number;
 }
 
 interface TaskState {
@@ -28,6 +29,7 @@ const taskSlice = createSlice({
                 return {
                     payload: {
                         id: nanoid(),
+                        createdTS: Date.now(),
                         text,
                         completed: false,
                         userId,

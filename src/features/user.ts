@@ -11,7 +11,7 @@ interface UserState {
     currentUser?: User;
 }
 const adminUser = {
-    id: nanoid(),
+    id: 'admin',
     name: 'admin',
     createdTs: Date.now(),
 };

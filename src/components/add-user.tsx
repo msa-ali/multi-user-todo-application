@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../store';
-import { addTask } from '../features/task';
+import { useAppDispatch } from '../store';
 import Input from './input';
+import { addUser } from '../features/user';
 
-function AddTask() {
+function AddUser() {
     const [text, setText] = useState('');
 
-    const currentUser  = useAppSelector(state => state.users.currentUser);
     const dispatch = useAppDispatch();
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = event => setText(event.target.value)
@@ -14,7 +13,7 @@ function AddTask() {
     const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
         if (event.key === 'Enter') {
             if (text) {
-                dispatch(addTask(text, currentUser?.id))
+                dispatch(addUser(text))
                 setText("");
             }
         }
@@ -26,9 +25,9 @@ function AddTask() {
             value={text}
             onKeyDown={onKeyDown}
             onChange={handleChange}
-            placeholder='Add tasks here...'
+            placeholder='Add User'
         />
     )
 }
 
-export default AddTask
+export default AddUser;
